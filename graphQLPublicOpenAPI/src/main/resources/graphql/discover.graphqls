@@ -1,0 +1,55 @@
+type Loan {
+    id: ID!
+    name: String!
+
+    intrestRate: Float
+    termMonths: Int
+
+}
+
+type RepaymentResponse {
+
+    monthlyRepaymentAmt: Float;
+
+}
+
+
+input Customer {
+    firstName: String
+    lastName: String
+}
+
+
+input RepaymentRequest {
+    loanID: ID
+    ceditScore: Int
+    borrowAmmont: Float
+}
+
+input CreditCheckRequest {
+
+    customer: Customer
+
+}
+
+input LoanApplicationRequest {
+    loanID: ID
+    customer: Customer
+    borrowAmmont: Float
+}
+
+
+type Query {
+
+    loans: [Loan]
+
+    repaymentCalculator(repaymentRequest: RepaymentRequest): RepaymentResponse
+    creditCheck(creditCheckRequest: CreditCheckRequest): Boolean
+}
+
+
+type Mutation {
+
+    applyForLoan(loanApplicationRequest: LoanApplicationRequest) : Boolean
+
+}
