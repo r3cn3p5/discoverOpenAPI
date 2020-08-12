@@ -1,0 +1,9 @@
+rootProject.name = 'discoverOpenAPI'
+include 'graphQLPrivateOpenAPI'
+include 'graphQLPublicOpenAPI'
+include 'cardsMicroserver'
+include 'loansMicroserver'
+include 'microserviceDeposits'
+include 'microserviceLoans'
+include 'microserviceCards'
+
