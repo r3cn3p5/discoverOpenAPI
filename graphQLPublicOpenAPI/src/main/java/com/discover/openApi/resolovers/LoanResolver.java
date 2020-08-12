@@ -5,29 +5,35 @@ import com.discover.openApi.dto.CreditCheckRequest;
 import com.discover.openApi.dto.Loan;
 import com.discover.openApi.dto.RepaymentRequest;
 import com.discover.openApi.dto.RepaymentResponse;
+import com.discover.openApi.service.LoanService;
+import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.List;
 
+@Component
 public class LoanResolver implements GraphQLQueryResolver {
+
+    private LoanService loanservice;
+
+    public LoanResolver(LoanService loanservice) {
+        this.loanservice = loanservice;
+    }
 
     public List<Loan> loans() {
 
-
-
-
-        return Collections.EMPTY_LIST;
+        return loanservice.getLoans();
     }
 
     public RepaymentResponse repaymentCalculator(RepaymentRequest request) {
 
-        return new RepaymentResponse();
+
+        return loanservice.repaymentCalculator(request);
     }
 
 
     public boolean creditCheck(CreditCheckRequest request) {
 
 
-        return false;
+        return loanservice.creditCheck(request);
     }
 }

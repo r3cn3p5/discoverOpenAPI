@@ -1,16 +1,21 @@
 package com.discover.openApi.dto;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
 public class Loan {
 
+    @NonNull
     private Long id;
+    @NonNull
     private String name;
 
-    private Double intrestRate;
-    private Integer termMonths;
+    @NonNull
+    private Double interestRate;
+    @NonNull
+    private Integer termInMonths;
 
 }

@@ -1,0 +1,7 @@
+{ loans {
+  id, name, intrestRate, termMonths
+} }
+
+{
+creditCheck( creditCheckRequest: {customer: {firstname: "nigel", lastname: "mitchell"} } )
+}

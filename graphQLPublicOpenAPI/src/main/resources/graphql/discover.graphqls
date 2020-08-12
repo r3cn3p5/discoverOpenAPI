@@ -2,21 +2,21 @@ type Loan {
     id: ID!
     name: String!
 
-    intrestRate: Float
-    termMonths: Int
+    interestRate: Float
+    termInMonths: Int
 
 }
 
 type RepaymentResponse {
 
-    monthlyRepaymentAmt: Float;
+    monthlyRepaymentAmt: Float
 
 }
 
 
 input Customer {
-    firstName: String
-    lastName: String
+    firstname: String
+    lastNnme: String
 }
 
 
@@ -44,6 +44,7 @@ type Query {
     loans: [Loan]
 
     repaymentCalculator(repaymentRequest: RepaymentRequest): RepaymentResponse
+
     creditCheck(creditCheckRequest: CreditCheckRequest): Boolean
 }
 
