@@ -5,3 +5,8 @@
 {
 creditCheck( creditCheckRequest: {customer: {firstname: "nigel", lastname: "mitchell"} } )
 }
+
+
+{
+repaymentCalculator(repaymentRequest : { loanID: 1, ceditScore: 500, borrowAmmont: 1000 }) { monthlyRepaymentAmt}
+}

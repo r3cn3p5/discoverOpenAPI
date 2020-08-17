@@ -2,16 +2,19 @@ package com.discover.openApi.service;
 
 import com.discover.openApi.dto.CreditCheckRequest;
 import com.discover.openApi.dto.Loan;
-import com.discover.openApi.dto.RepaymentRequest;
-import com.discover.openApi.dto.RepaymentResponse;
+import com.discover.openApi.dto.LoanApplicationRequest;
 
 import java.util.List;
 
 public interface LoanService {
 
-    public List<Loan> getLoans();
 
-    public RepaymentResponse repaymentCalculator(RepaymentRequest request);
-    public boolean creditCheck(CreditCheckRequest request);
+    public Loan getLoan(long id);
+
+    public List<Loan> getLoans(Double borrowAmount);
+
+    public String creditCheck(CreditCheckRequest request);
+
+    public Boolean applyForLoan(LoanApplicationRequest loanApplicationRequest);
 
 }

@@ -3,6 +3,7 @@ package com.discover.openApi.dto;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @RequiredArgsConstructor
@@ -17,5 +18,8 @@ public class Loan {
     private Double interestRate;
     @NonNull
     private Integer termInMonths;
+
+    @Setter
+    private Double monthlyRepaymentAmt;
 
 }

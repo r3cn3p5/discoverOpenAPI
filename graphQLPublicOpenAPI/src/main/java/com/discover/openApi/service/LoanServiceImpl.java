@@ -2,56 +2,74 @@ package com.discover.openApi.service;
 
 import com.discover.openApi.dto.CreditCheckRequest;
 import com.discover.openApi.dto.Loan;
-import com.discover.openApi.dto.RepaymentRequest;
-import com.discover.openApi.dto.RepaymentResponse;
+import com.discover.openApi.dto.LoanApplicationRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+@Slf4j
 @Service
 public class LoanServiceImpl implements LoanService {
 
     ArrayList<Loan> loans = new ArrayList<>();
 
     public LoanServiceImpl() {
-        loans.add(new Loan(1L, "Personal Loan", 2.2, 12));
-        loans.add(new Loan(2L, "Personal Loan", 2.1, 18));
-        loans.add(new Loan(3L, "Personal Loan", 2.2, 36));
-        loans.add(new Loan(4L, "Personal Loan", 2.3, 48));
-        loans.add(new Loan(5L, "Personal Loan Platinum", 2.0, 12));
-        loans.add(new Loan(6L, "Personal Loan Platinum", 2.1, 18));
-        loans.add(new Loan(7L, "Personal Loan Platinum", 2.2, 36));
-        loans.add(new Loan(8L, "Personal Loan Platinum", 2.3, 48));
+        loans.add(new Loan(1L, "Personal Loan", 2.1, 12));
+        loans.add(new Loan(2L, "Personal Loan", 2.2, 18));
+        loans.add(new Loan(3L, "Personal Loan", 2.3, 36));
+        loans.add(new Loan(4L, "Personal Loan", 2.4, 48));
+        loans.add(new Loan(5L, "Personal Loan (insurance)", 3.4, 12));
+        loans.add(new Loan(6L, "Personal Loan (insurance)", 3.3, 18));
+        loans.add(new Loan(7L, "Personal Loan (insurance)", 3.2, 36));
+        loans.add(new Loan(8L, "Personal Loan (insurance)", 3.1, 48));
     }
 
     @Override
-    public List<Loan> getLoans() {
+    public Loan getLoan(long id) {
+
+        log.info("*************************************************************************");
+        log.info("Request for Loan");
+        log.info("*************************************************************************");
+
+        return loans.stream().filter(x -> x.getId().longValue() == id).findFirst().get();
+    }
+
+    @Override
+    public List<Loan> getLoans(Double borrowAmount) {
+
+        log.info("*************************************************************************");
+        log.info("Request for Loan Repayments");
+        log.info("*************************************************************************");
+
+
+        // TODO: this code safe until introduce MS
+        double scale = Math.pow(10, 2);
+        loans.stream().forEach(x -> {x.setMonthlyRepaymentAmt( Math.round((borrowAmount + (borrowAmount / 100) * x.getInterestRate()) /  x.getTermInMonths() * scale) / scale);});
+
         return loans;
     }
 
     @Override
-    public RepaymentResponse repaymentCalculator(RepaymentRequest request) {
+    public String creditCheck(CreditCheckRequest request) {
 
-        double repaymentAmount = 0;
+        log.info("*************************************************************************");
+        log.info("Request for Credit Card Check");
+        log.info("*************************************************************************");
 
-        Optional<Loan> loan = loans.stream().filter(x -> x.getId() == request.getLoanID()).findFirst();
+        if (request.getCustomer().getFirstname().equalsIgnoreCase("nigel")) return "FAIL";
+        if (request.getCustomer().getFirstname().equalsIgnoreCase("spencer")) return "PASS";
 
-        if (loan.isPresent()) {
-
-            repaymentAmount = (request.getBorrowAmmont() + (request.getBorrowAmmont() / 100) * loan.get().getInterestRate()) / loan.get().getTermInMonths();
-
-        }
-
-        return  new RepaymentResponse(repaymentAmount);
-
+        return "ERROR";
     }
 
     @Override
-    public boolean creditCheck(CreditCheckRequest request) {
+    public Boolean applyForLoan(LoanApplicationRequest loanApplicationRequest) {
 
-        if (request.getCustomer().getFirstname().equalsIgnoreCase("nigel")) return false;
+        log.info("*************************************************************************");
+        log.info("Application for new Loan :) :) :)");
+        log.info("*************************************************************************");
 
         return true;
     }

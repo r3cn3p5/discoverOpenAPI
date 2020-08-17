@@ -3,8 +3,6 @@ package com.discover.openApi.resolovers;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.discover.openApi.dto.CreditCheckRequest;
 import com.discover.openApi.dto.Loan;
-import com.discover.openApi.dto.RepaymentRequest;
-import com.discover.openApi.dto.RepaymentResponse;
 import com.discover.openApi.service.LoanService;
 import org.springframework.stereotype.Component;
 
@@ -19,21 +17,17 @@ public class LoanResolver implements GraphQLQueryResolver {
         this.loanservice = loanservice;
     }
 
-    public List<Loan> loans() {
-
-        return loanservice.getLoans();
-    }
-
-    public RepaymentResponse repaymentCalculator(RepaymentRequest request) {
-
-
-        return loanservice.repaymentCalculator(request);
+    public Loan loan(long id) {
+        return loanservice.getLoan(id);
     }
 
 
-    public boolean creditCheck(CreditCheckRequest request) {
+    public List<Loan> loans(Double borrowAmount) {
+        return loanservice.getLoans(borrowAmount);
+    }
 
 
+    public String creditCheck(CreditCheckRequest request) {
         return loanservice.creditCheck(request);
     }
 }
